@@ -61,8 +61,133 @@ function saveSize(size) {
   } catch {}
 }
 
+// ───────── 메인 화면: 캡스톤 프로젝트 소개 ─────────
+const STEPS = [
+  { title: "지식베이스 정리", text: "4회차 실습자료(시방서·검사기준서·작업표준서·계약서)를 AI가 읽을 수 있는 문서 하나로 정리" },
+  { title: "AI 연결", text: "Google Gemini에 지식베이스를 함께 보내, 문서 내용에 근거해 답하도록 설정" },
+  { title: "채팅 화면", text: "React로 메신저 스타일 채팅창을 만들어 누구나 쉽게 질문" },
+  { title: "배포", text: "GitHub에 올리고 Vercel로 배포해 인터넷 주소로 접속" },
+];
+
+const DOCS = [
+  { tag: "A", name: "기술시방서 Rev.C", text: "라인 구성(ST10~ST60), 택트타임·가동률·양품률 등 성능 요구사항" },
+  { tag: "B", name: "출하검사기준서 Rev.2", text: "성능·스테이션·안전·외관 검사 항목과 판정 및 기록 방법" },
+  { tag: "C", name: "ST20·ST30 작업표준서 Rev.3", text: "작업 전 점검, 압입·체결 작업 순서, 이상 발생 시 조치" },
+  { tag: "D", name: "납품계약서", text: "납기, FAT·SAT 검수, 성능 보증, 지체상금, 하자 보증 등 30개 조항" },
+];
+
+const TECH = [
+  { name: "React", text: "화면 (CDN 방식, 빌드 도구 없음)" },
+  { name: "Node.js", text: "내 PC 테스트용 서버" },
+  { name: "Google Gemini", text: "질문에 답하는 AI 모델" },
+  { name: "Vercel", text: "인터넷 배포와 API 서버" },
+  { name: "GitHub", text: "코드 보관과 버전 관리" },
+];
+
+const SAMPLE_QUESTIONS = [
+  "ST30 체결 토크 기준이 몇 N·m야?",
+  "연속 시운전은 몇 시간이야?",
+  "Rev.B에서 Rev.C로 바뀐 내용 알려줘",
+  "택트타임 요구 기준은?",
+];
+
+function Landing({ onAsk }) {
+  return (
+    <div className="landing">
+      <section className="hero">
+        <div className="hero-inner">
+          <span className="badge">캡스톤 프로젝트</span>
+          <h1>품질경영실 AI 비서</h1>
+          <p className="lead">
+            SJ-AL200 자동 조립·검사 라인의 품질 문서를 읽고,<br />
+            궁금한 기준을 바로 찾아 답해 주는 사내 AI 비서입니다.
+          </p>
+          <button type="button" className="hero-btn" onClick={() => onAsk("")}>
+            AI 비서에게 물어보기
+          </button>
+        </div>
+      </section>
+
+      <main className="sections">
+        <section className="card">
+          <h2>프로젝트 목표</h2>
+          <ul className="goals">
+            <li><strong>찾는 시간 단축</strong> 여러 문서에 흩어진 품질 기준을 질문 한 번으로 확인</li>
+            <li><strong>근거 있는 답변</strong> 지식베이스 문서 내용에 근거해서만 답변</li>
+            <li><strong>비개발자도 직접 구축</strong> AI 도구와 함께 화면·서버·배포까지 완성</li>
+          </ul>
+        </section>
+
+        <section className="card">
+          <h2>만든 과정</h2>
+          <ol className="steps">
+            {STEPS.map((s, i) => (
+              <li key={s.title}>
+                <span className="step-num">{i + 1}</span>
+                <div>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="card">
+          <h2>AI가 학습한 문서</h2>
+          <div className="doc-grid">
+            {DOCS.map((d) => (
+              <div className="doc" key={d.tag}>
+                <span className="doc-tag">{d.tag}</span>
+                <h3>{d.name}</h3>
+                <p>{d.text}</p>
+              </div>
+            ))}
+          </div>
+          <p className="footnote">※ 교육용 가상 자료입니다. 회사명·인명·수치는 실제와 관계없습니다.</p>
+        </section>
+
+        <section className="card">
+          <h2>사용 기술</h2>
+          <div className="tech-list">
+            {TECH.map((t) => (
+              <div className="tech" key={t.name}>
+                <strong>{t.name}</strong>
+                <span>{t.text}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="card">
+          <h2>이렇게 물어보세요</h2>
+          <p className="card-sub">질문을 누르면 채팅창에 바로 입력됩니다.</p>
+          <div className="samples">
+            {SAMPLE_QUESTIONS.map((q) => (
+              <button type="button" className="sample" key={q} onClick={() => onAsk(q)}>
+                {q}
+              </button>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        품질경영실 AI 비서 · 캡스톤 프로젝트 · 실습용 화면입니다. 실제 회사 자료나 개인정보를 입력하지 마세요.
+      </footer>
+    </div>
+  );
+}
+
 function App() {
   const [open, setOpen] = useState(false);
+  // 메인 화면의 예시 질문을 채팅 입력창에 넣기 위한 값
+  const [draft, setDraft] = useState({ text: "", id: 0 });
+
+  function askFromLanding(text) {
+    if (text) setDraft((d) => ({ text, id: d.id + 1 }));
+    setOpen(true);
+  }
   const [size, setSize] = useState(loadSize);
   const [resizing, setResizing] = useState(false);
 
@@ -116,6 +241,8 @@ function App() {
 
   return (
     <>
+      <Landing onAsk={askFromLanding} />
+
       {/* 채팅창은 닫아도 대화 내용이 남도록 화면에서 숨기기만 한다 */}
       <div
         className={`chat-popup ${open ? "open" : ""} ${resizing ? "resizing" : ""}`}
@@ -133,7 +260,7 @@ function App() {
           onDoubleClick={resetSize}
           title="끌어서 크기 조절 (더블클릭: 원래 크기)"
         />
-        <ChatWindow open={open} onClose={() => setOpen(false)} />
+        <ChatWindow open={open} onClose={() => setOpen(false)} draft={draft} />
       </div>
 
       <button
@@ -149,13 +276,18 @@ function App() {
   );
 }
 
-function ChatWindow({ open, onClose }) {
+function ChatWindow({ open, onClose, draft }) {
   // 메시지 형식: { role: "user" | "assistant", text, time, error? }
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const listRef = useRef(null);
   const inputRef = useRef(null);
+
+  // 메인 화면에서 예시 질문을 누르면 입력창에 채운다 (전송은 직접)
+  useEffect(() => {
+    if (draft && draft.text) setInput(draft.text);
+  }, [draft]);
 
   // 새 메시지가 오면 맨 아래로 스크롤
   useEffect(() => {

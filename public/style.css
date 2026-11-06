@@ -445,3 +445,241 @@ body {
     max-width: 80%;
   }
 }
+
+/* ───────── 메인 화면: 캡스톤 소개 (채팅창과 같은 색 사용) ───────── */
+.landing {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  background: var(--chat-bg);
+  padding: 72px 20px 64px;
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 16px 0 12px;
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.lead {
+  margin: 0 0 28px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2b3a48;
+}
+
+.hero-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 24px;
+  background: var(--my-bubble);
+  color: #3c1e1e;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+}
+
+.sections {
+  flex: 1;
+  width: 100%;
+  max-width: 960px;
+  margin: -28px auto 0;
+  padding: 0 16px 48px;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.card h2 {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+}
+
+.card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.card p {
+  margin: 0;
+  line-height: 1.6;
+  color: #444;
+}
+
+.card-sub {
+  margin: -8px 0 14px !important;
+  font-size: 0.9rem;
+  color: var(--sub-text) !important;
+}
+
+.goals {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.goals li {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f4f6f8;
+  line-height: 1.6;
+}
+
+.goals strong {
+  display: block;
+}
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.steps li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--avatar-bg);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.doc {
+  padding: 16px;
+  border-radius: 12px;
+  background: #f4f6f8;
+}
+
+.doc-tag {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 2px 10px;
+  border-radius: 10px;
+  background: var(--my-bubble);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.footnote {
+  margin-top: 14px !important;
+  font-size: 0.8rem;
+  color: #999 !important;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--chat-bg);
+}
+
+.tech span {
+  font-size: 0.82rem;
+  color: #2b3a48;
+}
+
+.samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sample {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 14px;
+  border-top-left-radius: 3px;
+  background: var(--chat-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.sample:hover {
+  background: var(--my-bubble);
+}
+
+.site-footer {
+  padding: 20px 16px 96px; /* 오른쪽 아래 채팅 아이콘에 가리지 않게 */
+  text-align: center;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 48px 16px 52px;
+  }
+
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .lead br {
+    display: none;
+  }
+
+  .card {
+    padding: 18px;
+  }
+}
